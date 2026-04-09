@@ -20,12 +20,12 @@ df["Date"] = pd.to_datetime(df["Date"])
 df = df.dropna(subset=["PM2.5"])
 df = df.sort_values("Date")
 
-threshold = df["PM2.5"].quantile(0.95)
+threshold = df["PM2.5"].quantile(0.99)
 df["Spike"] = df["PM2.5"] > threshold
 
 spike_count = df["Spike"].sum()
 
-print(f"PM2.5 spike threshold (95th percentile): {threshold:.2f}")
+print(f"PM2.5 spike threshold (99th percentile): {threshold:.2f}")
 print(f"Number of spike days: {spike_count}")
 
 df.to_csv("spikes_detected.csv", index=False)
